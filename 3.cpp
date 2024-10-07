@@ -60,6 +60,19 @@ void print_tree(struct Node* r, int l)
 	print_tree(r->left, l + 1);
 }
 
+// Поиск максимального уровня узла
+int find_max_level(struct Node* r, int level)
+{
+	if (r == NULL)
+	{
+		return level - 1;
+	}
+
+	int left_level = find_max_level(r->left, level + 1);
+	int right_level = find_max_level(r->right, level + 1);
+
+	return (left_level > right_level) ? left_level : right_level;
+}
 
 int main()
 {
@@ -83,6 +96,9 @@ int main()
 	}
 
 	print_tree(root, 0);
+
+	int max_level = find_max_level(root, 0);
+	printf("Максимальный уровень узла: %d\n", max_level);
 
 	return 0;
 }
